@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Menu;
@@ -18,12 +19,12 @@ import android.widget.TextView;
 
 //http://android--examples.blogspot.com/2015/01/textview-bold-text-in-android.html
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText cupEditText = new EditText(this);
-    TextView tspTextView = new TextView(this);
-    TextView tbspTextView = new TextView(this);
-    Button calculateButton = new Button(this);
+    EditText cupEditText;
+    TextView tspTextView;
+    TextView tbspTextView;
+    Button calculateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        cupEditText = new EditText(this);
+        tspTextView = new TextView(this);
+        tbspTextView = new TextView(this);
+        calculateButton = new Button(this);
 
         LinearLayout.LayoutParams layoutParamsMatchWidth =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -43,25 +49,29 @@ public class MainActivity extends AppCompatActivity {
         cupTextView.setTypeface(cupTextView.getTypeface(), Typeface.BOLD);
         cupTextView.setText("Input number of Cups:");
 
+        cupEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+
         calculateButton.setText("Calculate");
+        calculateButton.setOnClickListener(this);
 
-        LinearLayout tspLinearLayout = new LinearLayout(this);
-        tspLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        //LinearLayout tspLinearLayout = new LinearLayout(this);
+        //tspLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        TextView tspTextView = new TextView(this);
-        tspTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
+        tspTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34);
         tspTextView.setTypeface(cupTextView.getTypeface(), Typeface.BOLD);
-        tspTextView.setText("Number of TSP:");
+        tspTextView.setText("Number of Teaspoon:");
+
+        tbspTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 34);
+        tbspTextView.setTypeface(cupTextView.getTypeface(), Typeface.BOLD);
+        tbspTextView.setText("Number of Tablespoon:");
 
         linearLayout.addView(cupTextView, layoutParamsMatchWidth);
-        linearLayout.addView(cupEditText,layoutParamsMatchWidth);
-        linearLayout.addView(calculateButton,layoutParamsMatchWidth);
-
-
+        linearLayout.addView(cupEditText, layoutParamsMatchWidth);
+        linearLayout.addView(calculateButton, layoutParamsMatchWidth);
+        linearLayout.addView(tspTextView, layoutParamsMatchWidth);
+        linearLayout.addView(tbspTextView, layoutParamsMatchWidth);
 
         setContentView(linearLayout);
-
-
     }
 
     @Override
@@ -84,5 +94,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (!cupEditText.getText().toString().isEmpty()) {
+
+            Integer numCup = Integer.parseInt(cupEditText.getText().toString());
+
+            int numTSP = 48 * numCup;
+            int numTBSP = 16 * numCup;
+            tspTextView.setText("Number of Teaspoon: " + numTSP);
+            tbspTextView.setText("Number of Tablespoon: " + numTBSP);
+        }
     }
 }
