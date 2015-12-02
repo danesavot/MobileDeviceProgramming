@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Converter Using XML Layout</string>
+    <string name="action_settings">Settings</string>
+    <string name="input_cup">Input number of Cups:</string>
+</resources>
