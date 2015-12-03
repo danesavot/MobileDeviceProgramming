@@ -80,6 +80,7 @@ public class GameView extends SurfaceView {
                 background = Bitmap.createScaledBitmap(background, getWidth(), getHeight(), false);
 
                 daemon = Bitmap.createScaledBitmap(daemon, 200, 200, false);
+
                 angel = Bitmap.createScaledBitmap(angel, 200, 250, false);
 
 
