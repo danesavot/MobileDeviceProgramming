@@ -34,7 +34,7 @@ public class GameView extends SurfaceView {
                 Maharishi = BitmapFactory.decodeResource(getResources(), R.drawable.maharishi_mahesh_yogi);
                 flower = BitmapFactory.decodeResource(getResources(),R.drawable.rose50 );
 
-                Bitmap.createScaledBitmap(flower,102,125,false)
+                Bitmap.createScaledBitmap(flower,102,125,false);
                 makeThread();
 
                 gthread.setRunning(true);
