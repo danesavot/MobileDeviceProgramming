@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 public abstract class GameObject {
 
     //used for the initialization of the object before a game can start.
-    public abstract void startGame();
+    public abstract void onInit();
     //called by the game engine as fast as possible, providing the
     //number of milliseconds that have passed since the previous call and a
     //reference to the GameEngine itself for future uses such as accessing user input

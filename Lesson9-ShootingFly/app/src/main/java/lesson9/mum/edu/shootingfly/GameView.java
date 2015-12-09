@@ -44,7 +44,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-
+        int numGameObjects = gameObjects.size();
+        for (int i = 0; i < numGameObjects; i++) {
+            gameObjects.get(i).onDraw(canvas);
+        }
 
     }
 }

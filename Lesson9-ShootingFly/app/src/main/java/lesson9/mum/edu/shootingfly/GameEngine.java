@@ -4,19 +4,22 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by 984391 on 12/7/2015.
  */
 public class GameEngine {
+    private static int EXPECTED_FPS = 30;
+    private static final long TIME_BETWEEN_DRAWS = 1000 / EXPECTED_FPS;
 
     GameView gameView;
     private List<GameObject> gameObjects =
             new ArrayList<GameObject>();
     private List<GameObject> objectsToAdd =
             new ArrayList<GameObject>();
-    private UpdateThread updateThread;
-    private DrawThread drawThread;
+    Timer timer;
 
     public  GameEngine(GameView gameView) {
 
@@ -24,19 +27,30 @@ public class GameEngine {
 
     }
 
-
     public void startGame() {
     // Stop a game if it is running
         stopGame();
     // Setup the game objects
+
         int numGameObjects = gameObjects.size();
         for (int i = 0; i < numGameObjects; i++) {
-            gameObjects.get(i).onDraw();
+            gameObjects.get(i).onInit();
         }
 
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                onDraw();
+            }
+        }, 0, TIME_BETWEEN_DRAWS);
+
+    }
+
+    public void onDraw() {
+
         Canvas c = null;
-        try
-        {
+        try {
             c = gameView.getHolder().lockCanvas();
             synchronized (gameView.getHolder())
             {
@@ -47,36 +61,34 @@ public class GameEngine {
         {
             if (c != null)
             {
-                view.getHolder().unlockCanvasAndPost(c);
+                gameView.getHolder().unlockCanvasAndPost(c);
             }
         }
 
-    // Start the update thread
-        updateThread = new UpdateThread(this);
-        updateThread.start();
-    // Start the drawing thread
-        drawThread = new DrawThread(this);
-        drawThread.start();
+    }
+    public void stopGame() {
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+    }
+    public void pauseGame() {
+        stopGame();
+    }
+    public void resumeGame() {
+        startGame();
     }
 
-    public void stopGame() {
-        if (mUpdateThread != null) {
-            mUpdateThread.stopGame();
-        }
-        if (mDrawThread != null) {
-            mDrawThread.stopGame();
-        }
-    }
     public void addGameObject(final GameObject gameObject) {
-        if (isRunning()){
+        //if (isRunning()){
             objectsToAdd.add(gameObject);
-        }
-        else {
-            gameObjects.add(gameObject);
-        }
-        activity.runOnUiThread(gameObject.mOnAddedRunnable);
+        //}
+        //else {
+        //   gameObjects.add(gameObject);
+        //}
+        //activity.runOnUiThread(gameObject.mOnAddedRunnable);
     }
-    public void removeGameObject(final GameObject gameObject) {
+/*    public void removeGameObject(final GameObject gameObject) {
         mObjectsToRemove.add(gameObject);
         mActivity.runOnUiThread(gameObject.mOnRemovedRunnable);
     }
@@ -94,5 +106,5 @@ public class GameEngine {
                 mGameObjects.add(mObjectsToAdd.remove(0));
             }
         }
-    }
+    }*/
 }
