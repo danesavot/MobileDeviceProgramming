@@ -3,6 +3,7 @@ package lesson9.mum.edu.shootingfly.gameobject;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 
 import lesson9.mum.edu.shootingfly.GameEngine;
 import lesson9.mum.edu.shootingfly.R;
@@ -11,9 +12,7 @@ import lesson9.mum.edu.shootingfly.R;
  * Created by 984391 on 12/9/2015.
  */
 public class Fly extends GameObject {
-    float bitmapX, bitmapY;
-    private int width =100;
-    private int height =100;
+
 
     Bitmap fly;
     GameEngine gameEngine;
@@ -21,43 +20,17 @@ public class Fly extends GameObject {
         this.gameEngine= gameEngine;
 
     }
-
     @Override
-    public int getWidth() {
-        return width;
-    }
-
-    @Override
-    public int getHeight() {
-        return height;
-    }
-
-    @Override
-    public float getX() {
-        return bitmapX;
-    }
-
-    @Override
-    public float getY() {
-        return bitmapY;
-    }
-
-    @Override
-    public void setX(float x) {
-        bitmapX = x;
-    }
-
-    @Override
-    public void setY(float y) {
-        bitmapY = y;
+    public boolean handleTouchEvent(MotionEvent event) {
+        return false;
     }
 
     @Override
     public void onInit() {
 
         fly = BitmapFactory.decodeResource(gameEngine.gameView.getResources(), R.drawable.fly);
-        fly = Bitmap.createScaledBitmap(fly, width, height, false);
-        bitmapX = (gameEngine.gameView.getWidth()-width)/2;
+        fly = Bitmap.createScaledBitmap(fly, getWidth(), getHeight(), false);
+        bitmapX = (gameEngine.gameView.getWidth()-getWidth())/2;
         bitmapY = 100;
     }
 

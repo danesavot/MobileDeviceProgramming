@@ -3,6 +3,7 @@ package lesson9.mum.edu.shootingfly.gameobject;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 
 import lesson9.mum.edu.shootingfly.GameEngine;
 import lesson9.mum.edu.shootingfly.R;
@@ -12,7 +13,6 @@ import lesson9.mum.edu.shootingfly.R;
  */
 public class Spaceship extends GameObject {
 
-    float bitmapX, bitmapY;
     private int width =200;
     private int height =200;
 
@@ -24,33 +24,14 @@ public class Spaceship extends GameObject {
     }
 
     @Override
-    public int getWidth() {
-        return width;
-    }
+    public boolean handleTouchEvent(MotionEvent event) {
 
-    @Override
-    public int getHeight() {
-        return height;
-    }
+        float x,y;
+        x= event.getX();
+        y = event.getY();
 
-    @Override
-    public float getX() {
-        return bitmapX;
-    }
-
-    @Override
-    public float getY() {
-        return bitmapY;
-    }
-
-    @Override
-    public void setX(float x) {
-        bitmapX = x;
-    }
-
-    @Override
-    public void setY(float y) {
-        bitmapY = y;
+        this.setX(x);
+        return false;
     }
 
     @Override

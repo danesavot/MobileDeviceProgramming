@@ -23,17 +23,25 @@ public class GameEngine {
             new ArrayList<GameObject>();
     Timer timer;
 
+    private boolean isRunning;
+
+
+
     public  GameEngine(GameView gameView) {
 
         this.gameView = gameView;
 
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
     public void startGame() {
     // Stop a game if it is running
         stopGame();
     // Setup the game objects
-
+        isRunning = true;
         int numGameObjects = getGameObjects().size();
         for (int i = 0; i < numGameObjects; i++) {
             getGameObjects().get(i).onInit();
@@ -72,6 +80,7 @@ public class GameEngine {
         if (timer != null) {
             timer.cancel();
             timer.purge();
+            isRunning = false;
         }
     }
     public void pauseGame() {

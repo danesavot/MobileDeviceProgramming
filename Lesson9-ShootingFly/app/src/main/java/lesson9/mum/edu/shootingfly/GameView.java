@@ -2,6 +2,7 @@ package lesson9.mum.edu.shootingfly;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -38,6 +39,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        float x = event.getX();
+        float y = event.getY();
+        for (int i = 0; i < gameEngine.getGameObjects().size() ; i++) {
+            gameEngine.getGameObjects().get(i).handleTouchEvent(event);
+        }
+
+
+        return true;
     }
 
     @Override

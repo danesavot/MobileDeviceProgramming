@@ -8,8 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import lesson9.mum.edu.shootingfly.gameobject.Background;
+import lesson9.mum.edu.shootingfly.gameobject.Bullet;
 import lesson9.mum.edu.shootingfly.gameobject.Fly;
 import lesson9.mum.edu.shootingfly.gameobject.FlyComposite;
+import lesson9.mum.edu.shootingfly.gameobject.GameObject;
 import lesson9.mum.edu.shootingfly.gameobject.Spaceship;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         gameView = new GameView(this);
         gameEngine = new GameEngine(gameView);
         gameEngine.addGameObject(new Background(gameEngine));
-        gameEngine.addGameObject(new Spaceship(gameEngine));
+        GameObject spaceship = new Spaceship(gameEngine);
+        gameEngine.addGameObject(spaceship);
 
         FlyComposite flyComposite = new FlyComposite(gameEngine);
         flyComposite.add(new Fly(gameEngine));
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         flyComposite.add(new Fly(gameEngine));
         flyComposite.add(new Fly(gameEngine));
 
+        gameEngine.addGameObject(new Bullet(gameEngine,spaceship));
+
 
         gameEngine.addGameObject(flyComposite);
 
@@ -39,6 +44,20 @@ public class MainActivity extends AppCompatActivity {
         gameView.setGameEngine(gameEngine);
         setContentView(gameView);
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        gameEngine.pauseGame();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (gameEngine.isRunning())
+            gameEngine.resumeGame();
     }
 
     @Override

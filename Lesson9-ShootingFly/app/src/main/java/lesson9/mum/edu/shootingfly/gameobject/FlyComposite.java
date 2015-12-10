@@ -1,6 +1,7 @@
 package lesson9.mum.edu.shootingfly.gameobject;
 
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,11 @@ public class FlyComposite extends GameObject {
     @Override
     public void setY(float y) {
 
+    }
+
+    @Override
+    public boolean handleTouchEvent(MotionEvent event) {
+        return false;
     }
 
     @Override

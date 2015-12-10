@@ -3,6 +3,7 @@ package lesson9.mum.edu.shootingfly.gameobject;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 
 import lesson9.mum.edu.shootingfly.GameEngine;
 import lesson9.mum.edu.shootingfly.R;
@@ -12,7 +13,6 @@ import lesson9.mum.edu.shootingfly.R;
  */
 public class Background extends GameObject {
 
-    float bitmapX, bitmapY;
 
     Bitmap background;
     GameEngine gameEngine;
@@ -22,33 +22,8 @@ public class Background extends GameObject {
     }
 
     @Override
-    public int getWidth() {
-        return 0;
-    }
-
-    @Override
-    public int getHeight() {
-        return 0;
-    }
-
-    @Override
-    public float getX() {
-        return 0;
-    }
-
-    @Override
-    public float getY() {
-        return 0;
-    }
-
-    @Override
-    public void setX(float x) {
-
-    }
-
-    @Override
-    public void setY(float y) {
-
+    public boolean handleTouchEvent(MotionEvent event) {
+        return false;
     }
 
     @Override

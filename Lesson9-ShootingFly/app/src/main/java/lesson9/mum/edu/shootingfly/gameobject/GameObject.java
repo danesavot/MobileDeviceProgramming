@@ -1,6 +1,7 @@
 package lesson9.mum.edu.shootingfly.gameobject;
 
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 
 import lesson9.mum.edu.shootingfly.GameEngine;
 
@@ -9,13 +10,31 @@ import lesson9.mum.edu.shootingfly.GameEngine;
  */
 public abstract class GameObject {
 
-    public abstract int getWidth();
-    public abstract int getHeight();
+    float bitmapX, bitmapY;
+    private int width =100;
+    private int height =100;
 
-    public abstract float getX();
-    public abstract float getY();
-    public abstract void setX(float x);
-    public abstract void setY(float y);
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+
+    public float getX() {
+        return  bitmapX;
+    }
+    public float getY() {
+        return  bitmapY;
+    }
+    public void setX(float x) {
+        bitmapX = x;
+    }
+    public void setY(float y) {
+        bitmapY = y;
+    }
+
+    public abstract boolean handleTouchEvent(MotionEvent event);
 
 
     //used for the initialization of the object before a game can start.
