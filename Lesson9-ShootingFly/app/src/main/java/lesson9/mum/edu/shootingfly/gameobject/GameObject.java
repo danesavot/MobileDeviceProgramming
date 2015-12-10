@@ -1,11 +1,22 @@
-package lesson9.mum.edu.shootingfly;
+package lesson9.mum.edu.shootingfly.gameobject;
 
 import android.graphics.Canvas;
+
+import lesson9.mum.edu.shootingfly.GameEngine;
 
 /**
  * Created by 984391 on 12/7/2015.
  */
 public abstract class GameObject {
+
+    public abstract int getWidth();
+    public abstract int getHeight();
+
+    public abstract float getX();
+    public abstract float getY();
+    public abstract void setX(float x);
+    public abstract void setY(float y);
+
 
     //used for the initialization of the object before a game can start.
     public abstract void onInit();

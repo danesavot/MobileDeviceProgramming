@@ -5,9 +5,6 @@ import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by 984391 on 12/7/2015.
  */
@@ -15,8 +12,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceHolder holder;
 
-    private List<GameObject> gameObjects =
-            new ArrayList<GameObject>();
+    GameEngine gameEngine;
 
     public GameView(Context context) {
         super(context);
@@ -24,12 +20,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         holder.addCallback(this);
     }
 
-
+    public void setGameEngine(GameEngine gameEngine){
+        this.gameEngine = gameEngine;
+    }
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
+        if (gameEngine != null) {
+            gameEngine.startGame();
+        }
     }
-
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
@@ -44,9 +44,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int numGameObjects = gameObjects.size();
+        int numGameObjects = gameEngine.getGameObjects().size();
         for (int i = 0; i < numGameObjects; i++) {
-            gameObjects.get(i).onDraw(canvas);
+            gameEngine.getGameObjects().get(i).onDraw(canvas);
         }
 
     }

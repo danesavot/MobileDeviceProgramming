@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import lesson9.mum.edu.shootingfly.gameobject.GameObject;
+
 /**
  * Created by 984391 on 12/7/2015.
  */
@@ -14,7 +16,7 @@ public class GameEngine {
     private static int EXPECTED_FPS = 30;
     private static final long TIME_BETWEEN_DRAWS = 1000 / EXPECTED_FPS;
 
-    GameView gameView;
+    public GameView gameView;
     private List<GameObject> gameObjects =
             new ArrayList<GameObject>();
     private List<GameObject> objectsToAdd =
@@ -32,9 +34,9 @@ public class GameEngine {
         stopGame();
     // Setup the game objects
 
-        int numGameObjects = gameObjects.size();
+        int numGameObjects = getGameObjects().size();
         for (int i = 0; i < numGameObjects; i++) {
-            gameObjects.get(i).onInit();
+            getGameObjects().get(i).onInit();
         }
 
         timer = new Timer();
@@ -81,12 +83,16 @@ public class GameEngine {
 
     public void addGameObject(final GameObject gameObject) {
         //if (isRunning()){
-            objectsToAdd.add(gameObject);
+            gameObjects.add(gameObject);
         //}
         //else {
         //   gameObjects.add(gameObject);
         //}
         //activity.runOnUiThread(gameObject.mOnAddedRunnable);
+    }
+
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
     }
 /*    public void removeGameObject(final GameObject gameObject) {
         mObjectsToRemove.add(gameObject);
