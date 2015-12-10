@@ -35,7 +35,12 @@ public class MainActivity extends AppCompatActivity {
         flyComposite.add(new Fly(gameEngine));
         flyComposite.add(new Fly(gameEngine));
 
-        gameEngine.addGameObject(new Bullet(gameEngine,spaceship));
+        Bullet bullet1 = new Bullet(gameEngine, spaceship);
+        Bullet bullet2 = new Bullet(gameEngine,spaceship);
+
+
+        gameEngine.addGameObject(bullet1);
+        gameEngine.addGameObject(bullet1);
 
 
         gameEngine.addGameObject(flyComposite);

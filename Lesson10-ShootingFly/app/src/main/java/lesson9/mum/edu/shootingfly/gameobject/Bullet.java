@@ -58,7 +58,7 @@ public class Bullet extends GameObject {
             setY(getSpaceshipBulletY());
             setX(getSpaceshipBulletX());
         }
-        setY(getY() -6 );
+        setY(getY() -10 );
         canvas.drawBitmap(bullet,getX(),getY(),null);
 
     }

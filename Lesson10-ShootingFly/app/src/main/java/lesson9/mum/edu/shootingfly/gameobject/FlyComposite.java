@@ -52,26 +52,6 @@ public class FlyComposite extends GameObject {
     }
 
     @Override
-    public float getX() {
-        return 0;
-    }
-
-    @Override
-    public float getY() {
-        return 0;
-    }
-
-    @Override
-    public void setX(float x) {
-
-    }
-
-    @Override
-    public void setY(float y) {
-
-    }
-
-    @Override
     public boolean handleTouchEvent(MotionEvent event) {
         return false;
     }
