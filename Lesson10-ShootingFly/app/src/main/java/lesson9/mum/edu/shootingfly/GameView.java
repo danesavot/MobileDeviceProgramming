@@ -6,6 +6,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import lesson9.mum.edu.shootingfly.gameengine.GameEngine;
+
 /**
  * Created by 984391 on 12/7/2015.
  */
@@ -55,7 +57,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         int numGameObjects = gameEngine.getGameObjects().size();

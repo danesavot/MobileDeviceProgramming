@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import lesson9.mum.edu.shootingfly.GameEngine;
 
 /**
  * Created by 984391 on 12/10/2015.
@@ -31,7 +30,7 @@ public class BulletComposite extends GameObject {
     }
 
     @Override
-    public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
+    public void onUpdate(long elapsedMillis) {
 
     }
 

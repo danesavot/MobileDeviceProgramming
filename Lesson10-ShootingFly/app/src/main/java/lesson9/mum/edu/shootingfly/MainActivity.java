@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import lesson9.mum.edu.shootingfly.gameengine.GameEngine;
 import lesson9.mum.edu.shootingfly.gameobject.Background;
 import lesson9.mum.edu.shootingfly.gameobject.Bullet;
 import lesson9.mum.edu.shootingfly.gameobject.Fly;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (gameEngine.isRunning())
+        if (gameEngine.isGameIsRunning())
             gameEngine.resumeGame();
     }
 

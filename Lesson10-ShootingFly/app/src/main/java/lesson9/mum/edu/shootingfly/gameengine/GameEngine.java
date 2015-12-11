@@ -1,4 +1,4 @@
-package lesson9.mum.edu.shootingfly;
+package lesson9.mum.edu.shootingfly.gameengine;
 
 import android.graphics.Canvas;
 
@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import lesson9.mum.edu.shootingfly.GameView;
 import lesson9.mum.edu.shootingfly.gameobject.GameObject;
 
 /**
  * Created by 984391 on 12/7/2015.
  */
 public class GameEngine {
+
     private static int EXPECTED_FPS = 30;
     private static final long TIME_BETWEEN_DRAWS = 1000 / EXPECTED_FPS;
 
@@ -21,10 +23,38 @@ public class GameEngine {
             new ArrayList<GameObject>();
     private List<GameObject> objectsToAdd =
             new ArrayList<GameObject>();
-    Timer timer;
+    private Timer timer;
+    private Thread lock = new Thread();
+    private boolean gameIsRunning,pauseGame;
 
-    private boolean isRunning;
+    private Runnable updateThread = new Runnable() {
+        @Override
+        public void run() {
+            long previousTimeMillis;
+            long currentTimeMillis;
+            long elapsedMillis;
+            previousTimeMillis = System.currentTimeMillis();
 
+            while (gameIsRunning) {
+                currentTimeMillis = System.currentTimeMillis();
+                elapsedMillis = currentTimeMillis - previousTimeMillis;
+                if (pauseGame) {
+                    while (pauseGame) {
+                        try {
+                            synchronized (lock) {
+                                lock.wait();
+                            }
+                        } catch (InterruptedException e) {
+// We stay on the loop
+                        }
+                    }
+                    currentTimeMillis = System.currentTimeMillis();
+                }
+                onUpdate(elapsedMillis);
+                previousTimeMillis = currentTimeMillis;
+            }
+        }
+    };
 
 
     public  GameEngine(GameView gameView) {
@@ -33,25 +63,29 @@ public class GameEngine {
 
     }
 
-    public boolean isRunning() {
-        return isRunning;
+    public boolean isGameIsRunning() {
+        return gameIsRunning;
     }
 
     public void startGame() {
     // Stop a game if it is running
         stopGame();
     // Setup the game objects
-        isRunning = true;
+        gameIsRunning = true;
+        pauseGame = false;
         int numGameObjects = getGameObjects().size();
         for (int i = 0; i < numGameObjects; i++) {
             getGameObjects().get(i).onInit();
         }
 
+        updateThread.run();
+
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                onDraw();
+                if (!pauseGame)
+                    onDraw();
             }
         }, 0, TIME_BETWEEN_DRAWS);
 
@@ -80,18 +114,27 @@ public class GameEngine {
         if (timer != null) {
             timer.cancel();
             timer.purge();
-            isRunning = false;
+            gameIsRunning = false;
         }
     }
     public void pauseGame() {
-        stopGame();
+
+        pauseGame = true;
+
     }
     public void resumeGame() {
-        startGame();
+        if (pauseGame == true) {
+            pauseGame = false;
+            synchronized (lock) {
+                lock.notify();
+            }
+
+        }
+        //startGame();
     }
 
     public void addGameObject(final GameObject gameObject) {
-        //if (isRunning()){
+        //if (gameIsRunning()){
             gameObjects.add(gameObject);
         //}
         //else {
@@ -107,19 +150,19 @@ public class GameEngine {
         mObjectsToRemove.add(gameObject);
         mActivity.runOnUiThread(gameObject.mOnRemovedRunnable);
     }
-
+*/
     public void onUpdate(long elapsedMillis) {
         int numGameObjects = gameObjects.size();
         for (int i=0; i<numGameObjects; i++) {
-            gameObjects.get(i).onUpdate(elapsedMillis, this);
+            gameObjects.get(i).onUpdate(elapsedMillis);
         }
-        synchronized (gameObjects) {
+/*        synchronized (gameObjects) {
             while (!mObjectsToRemove.isEmpty()) {
                 mGameObjects.remove(mObjectsToRemove.remove(0));
             }
             while (!objectsToAdd.isEmpty()) {
                 mGameObjects.add(mObjectsToAdd.remove(0));
             }
-        }
-    }*/
+        }*/
+    }
 }

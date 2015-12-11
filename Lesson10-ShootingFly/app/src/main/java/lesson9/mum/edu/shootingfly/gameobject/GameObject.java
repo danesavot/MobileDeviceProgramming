@@ -3,8 +3,6 @@ package lesson9.mum.edu.shootingfly.gameobject;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
-import lesson9.mum.edu.shootingfly.GameEngine;
-
 /**
  * Created by 984391 on 12/7/2015.
  */
@@ -42,8 +40,7 @@ public abstract class GameObject {
     //called by the game engine as fast as possible, providing the
     //number of milliseconds that have passed since the previous call and a
     //reference to the GameEngine itself for future uses such as accessing user input
-    public abstract void onUpdate(long elapsedMillis,
-                                  GameEngine gameEngine);
+    public abstract void onUpdate(long elapsedMillis);
     //makes the component render itself.
     public abstract void onDraw(Canvas canvas);
     public final Runnable mOnAddedRunnable = new Runnable() {

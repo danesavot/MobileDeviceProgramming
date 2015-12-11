@@ -4,9 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
-
-import lesson9.mum.edu.shootingfly.GameEngine;
 import lesson9.mum.edu.shootingfly.R;
+import lesson9.mum.edu.shootingfly.gameengine.GameEngine;
 
 /**
  * Created by 984391 on 12/9/2015.
@@ -35,7 +34,7 @@ public class Fly extends GameObject {
     }
 
     @Override
-    public void onUpdate(long elapsedMillis, GameEngine gameEngine) {
+    public void onUpdate(long elapsedMillis) {
 
     }
 
