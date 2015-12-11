@@ -78,7 +78,8 @@ public class GameEngine {
             getGameObjects().get(i).onInit();
         }
 
-        updateThread.run();
+        Thread thread = new Thread(updateThread);
+        thread.start();
 
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -111,6 +112,10 @@ public class GameEngine {
 
     }
     public void stopGame() {
+
+        //release pausegame if currently in pause state
+        resumeGame();
+
         if (timer != null) {
             timer.cancel();
             timer.purge();
